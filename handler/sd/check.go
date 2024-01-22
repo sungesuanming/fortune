@@ -19,19 +19,19 @@ const (
 )
 
 // HealthCheck shows `OK` as the ping-pong result.
-func HealthCheck(c *gin.Context)  {
-	message:= "OK"
-	c.String(http.StatusOK,"\n"+message)
+func HealthCheck(c *gin.Context) {
+	message := "OK"
+	c.String(http.StatusOK, "\n"+message)
 }
 
-//DiskCheck checks the disk usage.
-func DiskCheck(c *gin.Context)  {
-	u,_:=disk.Usage("/")
+// DiskCheck checks the disk usage.
+func DiskCheck(c *gin.Context) {
+	u, _ := disk.Usage("/")
 
-	usedMB := int(u.Used)/MB
-	usedGB := int(u.Used)/GB
-	totalMB	:= int(u.Total)/MB
-	totalGB := int(u.Total)/GB
+	usedMB := int(u.Used) / MB
+	usedGB := int(u.Used) / GB
+	totalMB := int(u.Total) / MB
+	totalGB := int(u.Total) / GB
 	usedPercent := int(u.UsedPercent)
 
 	status := http.StatusOK
