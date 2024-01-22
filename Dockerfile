@@ -25,8 +25,9 @@ WORKDIR /app
 
 # 将构建产物/app/main拷贝到运行时的工作目录中
 COPY --from=builder /app/main /app/index.html /app/
+COPY --from=builder /app/conf /app/conf
 
 # 执行启动命令
 # 写多行独立的CMD命令是错误写法！只有最后一行CMD命令会被执行，之前的都会被忽略，导致业务报错。
 # 请参考[Docker官方文档之CMD命令](https://docs.docker.com/engine/reference/builder/#cmd)
-CMD ["/app/main"]
+CMD ["/app/main"," -c","/app/conf/config.yaml"]
