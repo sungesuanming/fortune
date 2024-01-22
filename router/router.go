@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fortune/handler/sd"
 	"fortune/router/middleware"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "The incorrect API route.")
 	})
-
+	//The health check handlers
+	svcd := g.Group("/sd")
+	{
+		svcd.GET("health", sd.HealthCheck)
+		svcd.GET("/disk", sd.DiskCheck)
+		svcd.GET("/cpu", sd.CPUCheck)
+		svcd.GET("/ram", sd.RAMCheck)
+	}
 	return g
 }

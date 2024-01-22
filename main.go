@@ -73,6 +73,7 @@ func main() {
 		}()
 	}
 
+	//log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
