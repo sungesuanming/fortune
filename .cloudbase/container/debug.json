@@ -2,7 +2,6 @@
   "containers": [
     {
       "name": "fortune",
-      "containerId": "e0636befb1b360f54f0b9ad7c720a44e319b09f10bc49b8cf26fd566275ed0fd",
       "domain": "",
       "ip": ""
     }

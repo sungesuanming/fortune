@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fortune/handler/color"
 	"fortune/handler/sd"
 	"fortune/router/middleware"
 	"github.com/gin-contrib/cors"
@@ -29,6 +30,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		svcd.GET("/disk", sd.DiskCheck)
 		svcd.GET("/cpu", sd.CPUCheck)
 		svcd.GET("/ram", sd.RAMCheck)
+	}
+
+	c := g.Group("/color")
+	{
+		c.POST("/test", color.ColorTest)
 	}
 	return g
 }
