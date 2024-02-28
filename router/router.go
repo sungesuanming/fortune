@@ -35,6 +35,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	c := g.Group("/color")
 	{
 		c.POST("/test", color.ColorTest)
+		c.POST("/today", color.TodayColor)
 	}
 	return g
 }

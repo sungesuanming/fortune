@@ -1,8 +1,11 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fortune/config"
+	"fortune/db"
+	"fortune/handler/color"
 	"fortune/pkg/log"
 	"fortune/router"
 	"github.com/gin-gonic/gin"
@@ -23,9 +26,18 @@ func main() {
 	}
 
 	// init DB
-	//model.DB.Init()
+	mysqlDB, err := db.NewMysqlDB()
+	if err != nil {
+		log.Errorf("NewMysqlDB error:%v", err)
+		return
+	}
+	err = color.NewColorHandler(context.Background(), mysqlDB)
+	if err != nil {
+		log.Errorf("NewColorHandler error:%v", err)
+	}
 	//defer model.DB.Close()
 	//
+
 	////init redis
 	//utils.Init()
 
