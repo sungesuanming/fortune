@@ -1,6 +1,7 @@
 package color
 
 import (
+	"context"
 	"fortune/handler"
 	"fortune/pkg/log"
 	"github.com/gin-gonic/gin"
@@ -33,9 +34,9 @@ type TodayReq struct {
 }
 
 type TodayResp struct {
-	BestColor      string `json:"best_color"`
-	AlternateColor string `json:"alternate_color"`
-	WorstColor     string `json:"worst_color"`
+	BestColor      map[string][]string `json:"best_color"`
+	AlternateColor map[string][]string `json:"alternate_color"`
+	WorstColor     map[string][]string `json:"worst_color"`
 }
 
 func TodayColor(c *gin.Context) {
@@ -53,9 +54,15 @@ func TodayColor(c *gin.Context) {
 	}
 
 	res := TodayResp{
-		BestColor:      colorResult.Optimum,
-		AlternateColor: colorResult.Alternative,
-		WorstColor:     colorResult.NoRecommend,
+		BestColor:      fillColorConfMap(c, colorResult.Optimum),
+		AlternateColor: fillColorConfMap(c, colorResult.Alternative),
+		WorstColor:     fillColorConfMap(c, colorResult.NoRecommend),
 	}
 	handler.SendResponse(c, nil, res)
+}
+
+func fillColorConfMap(ctx context.Context, colorSystem string) map[string][]string {
+	res := make(map[string][]string)
+	res[colorSystem] = colorHandler.GetColorConfByCache(ctx, colorSystem)
+	return res
 }

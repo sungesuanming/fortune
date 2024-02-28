@@ -19,6 +19,11 @@ func NewColorHandler(ctx context.Context, mysqlDB *db.MysqlDB) error {
 		log.Errorf("NewColorHandler NewModel:%v", err)
 		return err
 	}
+	err = model.InitCache()
+	if err != nil {
+		log.Errorf("NewColorHandler InitCache:%v", err)
+		return err
+	}
 	colorHandler = &ColorHandler{model}
 	return nil
 }
