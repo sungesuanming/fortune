@@ -30,13 +30,13 @@ func NewModel(ctx context.Context, mysqlDb *db.MysqlDB) (*UCManager, error) {
 
 func (s *UCManager) GetColorByUserAndDay(ctx context.Context, userDay, currentDay string) (*DayMatch, error) {
 	var r *DayMatch
-	err := s.MysqlDB.DB.WithContext(ctx).Where("user_day = ? and current_day = ?", userDay, currentDay).Find(&r).Error
+	err := s.MysqlDB.DB.WithContext(ctx).Model(&DayMatch{}).Where("user_day = ? and current_day = ?", userDay, currentDay).Find(&r).Error
 	return r, err
 }
 
 func (s *UCManager) GetColorsConfBySystem(ctx context.Context, colorSystem string) ([]string, error) {
 	r := make([]*ColorConf, 0)
-	err := s.MysqlDB.DB.WithContext(ctx).Where("color_system = ?", colorSystem).Find(&r).Error
+	err := s.MysqlDB.DB.WithContext(ctx).Model(&ColorConf{}).Where("color_system = ?", colorSystem).Find(&r).Error
 	if err != nil {
 		return nil, err
 	}
