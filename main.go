@@ -45,7 +45,7 @@ func main() {
 	gin.SetMode(viper.GetString("runmode"))
 
 	//Create the Gin engine
-	g := gin.New()
+	g := gin.Default()
 
 	//g.Static("/static", "./dist")
 
