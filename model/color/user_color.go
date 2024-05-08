@@ -36,6 +36,10 @@ func (s *UCManager) GetColorByUserAndDay(ctx context.Context, userDay, currentDa
 
 func (s *UCManager) GetColorsConfBySystem(ctx context.Context, colorSystem string) ([]string, error) {
 	r := make([]*ColorConf, 0)
+	c := s.GetColorConfByCache(ctx, colorSystem)
+	if len(c) != 0 {
+		return c, nil
+	}
 	err := s.MysqlDB.DB.WithContext(ctx).Model(&ColorConf{}).Where("color_system = ?", colorSystem).Find(&r).Error
 	if err != nil {
 		return nil, err
