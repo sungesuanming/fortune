@@ -56,7 +56,7 @@ func TodayColor(c *gin.Context) {
 		log.Errorf("TodayColor GetColorByUserAndDay error:%v", err)
 		return
 	}
-
+	log.Debugf("req:%v TodayColor GetColorByUserAndDay result:%v", req, colorResult)
 	res := TodayResp{
 		BestColor:             colorResult.Optimum,
 		BestColorNumbers:      colorHandler.GetColorConfByCache(c, colorResult.Optimum),
