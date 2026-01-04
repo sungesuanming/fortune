@@ -10,6 +10,8 @@ import (
 
 var logger *zap.SugaredLogger
 
+type Level = zapcore.Level
+
 const (
 	DEBUG  = zapcore.DebugLevel
 	INFO   = zapcore.InfoLevel

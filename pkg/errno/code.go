@@ -24,15 +24,15 @@ var (
 	ErrPasswordIncorrect        = &Errno{Code: 20104, Message: "密码错误."}
 	ErrSendMessage              = &Errno{Code: 20105, Message: "验证码发送失败."}
 	ErrVerification             = &Errno{Code: 20106, Message: "验证码错误."}
-	ErrVerificationNil          = &Errno{Code: 20106, Message: "未获取验证码."}
-	ErrUserIsExist              = &Errno{Code: 20107, Message: "用户已存在."}
-	ErrFileIsExist              = &Errno{Code: 20108, Message: "文件已存在."}
-	ApplicationIsNotExist       = &Errno{Code: 20109, Message: "用户未报名."}
-	WeightIsExist               = &Errno{Code: 20110, Message: "权重值不可重复."}
-	CategoryIsUpload            = &Errno{Code: 20111, Message: "同一类别只能提交一个案例."}
-	CategoryCantModify          = &Errno{Code: 20112, Message: "已进入评审阶段，无法上传或修改参赛资料."}
-	MatchUnbegin                = &Errno{Code: 20113, Message: "大赛未开始，无法上传或修改参赛资料."}
-	ErrVerificationTooFrequency = &Errno{Code: 20114, Message: "验证码请求过于频繁."}
+	ErrVerificationNil          = &Errno{Code: 20107, Message: "未获取验证码."}
+	ErrUserIsExist              = &Errno{Code: 20108, Message: "用户已存在."}
+	ErrFileIsExist              = &Errno{Code: 20109, Message: "文件已存在."}
+	ApplicationIsNotExist       = &Errno{Code: 20110, Message: "用户未报名."}
+	WeightIsExist               = &Errno{Code: 20111, Message: "权重值不可重复."}
+	CategoryIsUpload            = &Errno{Code: 20112, Message: "同一类别只能提交一个案例."}
+	CategoryCantModify          = &Errno{Code: 20113, Message: "已进入评审阶段，无法上传或修改参赛资料."}
+	MatchUnbegin                = &Errno{Code: 20114, Message: "大赛未开始，无法上传或修改参赛资料."}
+	ErrVerificationTooFrequency = &Errno{Code: 20115, Message: "验证码请求过于频繁."}
 
 	ErrSeeLocation = &Errno{Code: 20301, Message: "是否消费10积分或充值VIP查看精准定位."}
 	ErrIsDLocation = &Errno{Code: 20302, Message: "已经是可看状态无需再次消费."}

@@ -64,17 +64,34 @@ func (c *Config) watchConfig() {
 }
 
 func (c *Config) initLog() {
-	/*	passLagerCfg := log.PassLagerCfg{
-			Writers:        viper.GetString("log.writers"),
-			LoggerLevel:    viper.GetString("log.logger_level"),
-			LoggerFile:     viper.GetString("log.logger_file"),
-			LogFormatText:  viper.GetBool("log.log_format_text"),
-			RollingPolicy:  viper.GetString("log.rollingPolicy"),
-			LogRotateDate:  viper.GetInt("log.log_rotate_date"),
-			LogRotateSize:  viper.GetInt("log.log_rotate_size"),
-			LogBackupCount: viper.GetInt("log.log_backup_count"),
-		}
+	// 从配置文件读取日志级别，默认为 info
+	logLevelStr := viper.GetString("log.level")
+	if logLevelStr == "" {
+		logLevelStr = "info"
+	}
 
-		log.InitWithConfig(&passLagerCfg)*/
+	// 解析日志级别
+	var logLevel log.Level
+	switch logLevelStr {
+	case "debug":
+		logLevel = log.DEBUG
+	case "info":
+		logLevel = log.INFO
+	case "warn":
+		logLevel = log.WARN
+	case "error":
+		logLevel = log.ERROR
+	case "dpanic":
+		logLevel = log.DPANIC
+	case "panic":
+		logLevel = log.PANIC
+	case "fatal":
+		logLevel = log.FATAL
+	default:
+		logLevel = log.INFO
+	}
 
+	// 使用配置的日志级别初始化日志
+	log.Init(log.GetConsoleZapcore(logLevel))
+	log.Infof("Log level set to: %s", logLevelStr)
 }

@@ -29,41 +29,28 @@ func main() {
 	mysqlDB, err := db.NewMysqlDB()
 	if err != nil {
 		log.Errorf("NewMysqlDB error:%v", err)
-		return
+		panic(err)
 	}
 	err = color.NewColorHandler(context.Background(), mysqlDB)
 	if err != nil {
 		log.Errorf("NewColorHandler error:%v", err)
+		panic(err)
 	}
-	//defer model.DB.Close()
-	//
 
-	////init redis
-	//utils.Init()
-
-	//Set gin mode.
+	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
 
-	//Create the Gin engine
+	// Create the Gin engine
 	g := gin.Default()
-
-	//g.Static("/static", "./dist")
-
-	//g.LoadHTMLGlob("tpl/*")
-
-	//g.LoadHTMLFiles("static/dist/index.html")
 
 	middlewares := []gin.HandlerFunc{}
 
 	router.Load(
-		//Cores,
 		g,
-
-		// Middlewares,
 		middlewares...,
 	)
 
-	//Ping the server to make sure the router is working.
+	// Ping the server to make sure the router is working.
 	go func() {
 		if err := pingServer(); err != nil {
 			log.Fatal("The router has no response, or it might took too long to start up.", err)
@@ -76,18 +63,12 @@ func main() {
 	key := viper.GetString("tls.key")
 
 	if pem != "" && key != "" {
-		/*go func() {
-			log.Info(http.ListenAndServeTLS(tlsAddr,pem,key,g).Error())
-			log.Infof("Start to listening the incoming requests on https address: %s",tlsAddr)
-		}()*/
 		go func() {
 			log.Infof(g.RunTLS(tlsAddr, pem, key).Error())
 		}()
 	}
 
-	//log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
-
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
 }
 

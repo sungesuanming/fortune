@@ -29,8 +29,8 @@ func NewModel(ctx context.Context, mysqlDb *db.MysqlDB) (*UCManager, error) {
 }
 
 func (s *UCManager) GetColorByUserAndDay(ctx context.Context, userDay, currentDay string) (*DayMatch, error) {
-	var r *DayMatch
-	err := s.MysqlDB.DB.WithContext(ctx).Model(&DayMatch{}).Where("user_day = ? and current_day = ?", userDay, currentDay).Find(&r).Error
+	r := &DayMatch{}
+	err := s.MysqlDB.DB.WithContext(ctx).Model(&DayMatch{}).Where("user_day = ? and current_day = ?", userDay, currentDay).First(&r).Error
 	return r, err
 }
 

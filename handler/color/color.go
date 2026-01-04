@@ -2,6 +2,7 @@ package color
 
 import (
 	"fortune/handler"
+	"fortune/pkg/errno"
 	"fortune/pkg/log"
 	"github.com/gin-gonic/gin"
 )
@@ -28,8 +29,8 @@ func ColorTest(c *gin.Context) {
 }
 
 type TodayReq struct {
-	UserDay    string `json:"user_day"`
-	CurrentDay string `json:"current_day"`
+	UserDay    string `json:"user_day" binding:"required"`
+	CurrentDay string `json:"current_day" binding:"required"`
 }
 
 type TodayResp struct {
@@ -48,12 +49,14 @@ func TodayColor(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		log.Errorf("TodayColor ShouldBindJSON error:%v", err)
+		handler.SendResponse(c, errno.ErrBind, nil)
 		return
 	}
 
 	colorResult, err := colorHandler.GetColorByUserAndDay(c, req.UserDay, req.CurrentDay)
 	if err != nil {
 		log.Errorf("TodayColor GetColorByUserAndDay error:%v", err)
+		handler.SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
 	log.Debugf("req:%v TodayColor GetColorByUserAndDay result:%v", req, colorResult)
